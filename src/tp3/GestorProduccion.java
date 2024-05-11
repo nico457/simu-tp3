@@ -17,7 +17,7 @@ import javax.swing.table.TableColumn;
 public class GestorProduccion implements ActionListener{
     private Pantalla views;
     private DefaultTableModel model = new DefaultTableModel();
-    
+    private DefaultTableModel modelOriginal = new DefaultTableModel();
 
     public GestorProduccion(Pantalla views){
         this.views = views;
@@ -36,6 +36,7 @@ public class GestorProduccion implements ActionListener{
             cleanTable();
     
             model = (DefaultTableModel) views.tabla.getModel();
+            modelOriginal = (DefaultTableModel) views.tabla.getModel();
             for (int i = 0; i < lote; i++) {
                 model.addColumn("RND " + (i + 1));
                 model.addColumn("COND " + (i + 1));
@@ -80,11 +81,9 @@ public class GestorProduccion implements ActionListener{
         }
     }
     public void cleanTable() {
-        for (int i = 0; i < model.getRowCount(); i++) {
-            model.removeRow(i);
-            
-  
-        }
+       DefaultTableModel model = (DefaultTableModel) views.tabla.getModel();
+        model.setRowCount(0);
+        model.setColumnCount(1);
        
     }
      
