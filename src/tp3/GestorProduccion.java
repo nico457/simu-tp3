@@ -17,7 +17,7 @@ import javax.swing.table.TableColumn;
 public class GestorProduccion implements ActionListener{
     private Pantalla views;
     private DefaultTableModel model = new DefaultTableModel();
-    private DefaultTableModel modelOriginal = new DefaultTableModel();
+
     double menorCosto;
 
     public GestorProduccion(Pantalla views){
@@ -32,13 +32,9 @@ public class GestorProduccion implements ActionListener{
             
             int lote = Integer.parseInt(views.lote.getText());
             int veces = Integer.parseInt(views.veces.getText());
-
-
-            
             cleanTable();
     
             model = (DefaultTableModel) views.tabla.getModel();
-            modelOriginal = (DefaultTableModel) views.tabla.getModel();
             for (int i = 0; i < lote; i++) {
                 model.addColumn("RND " + (i + 1));
                 model.addColumn("COND " + (i + 1));
@@ -46,15 +42,12 @@ public class GestorProduccion implements ActionListener{
             model.addColumn("BUENAS");
             model.addColumn("COSTO");
          
-       
-            
-            int cantColumnas = (lote * 2) + 3;
-            
             double promedioCostos = 0;
             double acumCostos = 0;
             for (int j = 0; j < veces; j++) {
                 Produccion produccion = new Produccion();
                 ArrayList<Pieza> piezas = produccion.producirPiezas(lote);
+                int cantColumnas = (lote * 2) + 3;
                 Object[] row = new Object[cantColumnas];
                 row[0] = j+1;
                 int cont = 0;
@@ -85,10 +78,7 @@ public class GestorProduccion implements ActionListener{
                 menorCosto = promedioCostos;
                 views.mejorLote.setText(String.valueOf(lote));
             }
-            
-            
-         
-            
+                  
         }
     }
     public void cleanTable() {
