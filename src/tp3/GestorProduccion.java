@@ -18,10 +18,12 @@ public class GestorProduccion implements ActionListener{
     private Pantalla views;
     private DefaultTableModel model = new DefaultTableModel();
     private DefaultTableModel modelOriginal = new DefaultTableModel();
+    double menorCosto;
 
     public GestorProduccion(Pantalla views){
         this.views = views;
         this.views.btn_gen_sim.addActionListener(this);
+        this.menorCosto = 99999999;
         
     }
     @Override
@@ -48,7 +50,8 @@ public class GestorProduccion implements ActionListener{
             
             int cantColumnas = (lote * 2) + 3;
             
-      
+            double promedioCostos = 0;
+            double acumCostos = 0;
             for (int j = 0; j < veces; j++) {
                 Produccion produccion = new Produccion();
                 ArrayList<Pieza> piezas = produccion.producirPiezas(lote);
@@ -66,16 +69,24 @@ public class GestorProduccion implements ActionListener{
 
                 int len = row.length;
                 row[len-2] = produccion.getContBuenas();
-                row[len-1] = produccion.calcularCosto();
+                double costo = produccion.calcularCosto();
+                acumCostos += costo;
+                row[len-1] = costo;
                 
                 model.addRow(row);
                 
             }
-           
+            promedioCostos = acumCostos / veces;
+            views.promedio.setText(String.valueOf(promedioCostos));
             
-            /*
-        
-            */
+            
+            
+            if(promedioCostos <= menorCosto){
+                menorCosto = promedioCostos;
+                views.mejorLote.setText(String.valueOf(lote));
+            }
+            
+            
          
             
         }

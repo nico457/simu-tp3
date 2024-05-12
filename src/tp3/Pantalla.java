@@ -20,7 +20,6 @@ public class Pantalla extends javax.swing.JFrame {
         setSize(1010,600);
         setResizable(false);
         setLocationRelativeTo(null);
-        setBackground(Color.MAGENTA);
         this.repaint(); 
         GestorProduccion gestor = new GestorProduccion(this);
     }
@@ -43,11 +42,11 @@ public class Pantalla extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        jScrollBar1 = new javax.swing.JScrollBar();
-        jScrollBar3 = new javax.swing.JScrollBar();
-        jScrollBar4 = new javax.swing.JScrollBar();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jLabel3 = new javax.swing.JLabel();
+        promedio = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        mejorLote = new javax.swing.JTextField();
+        lote1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(152, 202, 203));
@@ -61,7 +60,7 @@ public class Pantalla extends javax.swing.JFrame {
         });
         getContentPane().add(veces, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 140, -1));
 
-        jLabel2.setText("Nro de simulaciones");
+        jLabel2.setText("Nro de simulaciones:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, -1));
 
         btn_gen_sim.setText("Generar simulación");
@@ -80,7 +79,7 @@ public class Pantalla extends javax.swing.JFrame {
         });
         getContentPane().add(lote, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 140, -1));
 
-        jLabel4.setText("Tamaño del lote");
+        jLabel4.setText("Tamaño del lote:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(152, 202, 203));
@@ -97,7 +96,26 @@ public class Pantalla extends javax.swing.JFrame {
                 "N"
             }
         ));
+        tabla.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabla.setMaximumSize(new java.awt.Dimension(800, 400));
         jScrollPane4.setViewportView(tabla);
+
+        jLabel3.setText("Costo Promedio:");
+
+        promedio.setEditable(false);
+        promedio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                promedioActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Mejor lote: ");
+
+        mejorLote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mejorLoteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -112,6 +130,16 @@ public class Pantalla extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(344, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mejorLote, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(34, 34, 34)
+                .addComponent(promedio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(377, 377, 377))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,17 +148,24 @@ public class Pantalla extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(168, 168, 168)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(promedio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(mejorLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-        getContentPane().add(jScrollBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 50, -1));
-        getContentPane().add(jScrollBar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 220, -1, -1));
 
-        jScrollBar4.setOrientation(javax.swing.JScrollBar.HORIZONTAL);
-        getContentPane().add(jScrollBar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(798, 230, 50, 20));
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 270, 40, 60));
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 210, 70, 120));
+        lote1.setToolTipText("");
+        lote1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lote1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(lote1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 140, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -146,6 +181,18 @@ public class Pantalla extends javax.swing.JFrame {
     private void loteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_loteActionPerformed
+
+    private void lote1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lote1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lote1ActionPerformed
+
+    private void promedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_promedioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_promedioActionPerformed
+
+    private void mejorLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mejorLoteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mejorLoteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,15 +233,15 @@ public class Pantalla extends javax.swing.JFrame {
     public javax.swing.JButton btn_gen_sim;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollBar jScrollBar1;
-    private javax.swing.JScrollBar jScrollBar3;
-    private javax.swing.JScrollBar jScrollBar4;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     public javax.swing.JTextField lote;
+    public javax.swing.JTextField lote1;
+    public javax.swing.JTextField mejorLote;
+    public javax.swing.JTextField promedio;
     public javax.swing.JTable tabla;
     public javax.swing.JTextField veces;
     // End of variables declaration//GEN-END:variables
