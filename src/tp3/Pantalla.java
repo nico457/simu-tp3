@@ -45,6 +45,8 @@ public class Pantalla extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         promedio = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        txt_menorCosto = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         mejorLote = new javax.swing.JTextField();
         lote1 = new javax.swing.JTextField();
 
@@ -84,9 +86,11 @@ public class Pantalla extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(152, 202, 203));
         jPanel3.setMinimumSize(new java.awt.Dimension(1300, 600));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("FUNDICIÓN Y FRESADO DE PIEZAS");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(286, 49, -1, -1));
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,12 +99,24 @@ public class Pantalla extends javax.swing.JFrame {
             new String [] {
                 "N"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabla.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabla.setDragEnabled(true);
         tabla.setMaximumSize(new java.awt.Dimension(800, 400));
         jScrollPane4.setViewportView(tabla);
 
+        jPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 246, 982, 265));
+
         jLabel3.setText("Costo Promedio:");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 532, -1, -1));
 
         promedio.setEditable(false);
         promedio.addActionListener(new java.awt.event.ActionListener() {
@@ -108,54 +124,29 @@ public class Pantalla extends javax.swing.JFrame {
                 promedioActionPerformed(evt);
             }
         });
+        jPanel3.add(promedio, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 529, 125, -1));
 
-        jLabel5.setText("Mejor lote: ");
+        jLabel5.setText("Menor costo:");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 530, -1, -1));
 
+        txt_menorCosto.setEditable(false);
+        txt_menorCosto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_menorCostoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(txt_menorCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 530, 125, -1));
+
+        jLabel6.setText("Mejor lote: ");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 532, -1, -1));
+
+        mejorLote.setEditable(false);
         mejorLote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mejorLoteActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(344, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mejorLote, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(34, 34, 34)
-                .addComponent(promedio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(377, 377, 377))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jLabel1)
-                .addGap(168, 168, 168)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(promedio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(mejorLote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(175, Short.MAX_VALUE))
-        );
+        jPanel3.add(mejorLote, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 529, 125, -1));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -189,6 +180,10 @@ public class Pantalla extends javax.swing.JFrame {
     private void promedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_promedioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_promedioActionPerformed
+
+    private void txt_menorCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_menorCostoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_menorCostoActionPerformed
 
     private void mejorLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mejorLoteActionPerformed
         // TODO add your handling code here:
@@ -236,6 +231,7 @@ public class Pantalla extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane4;
     public javax.swing.JTextField lote;
@@ -243,6 +239,7 @@ public class Pantalla extends javax.swing.JFrame {
     public javax.swing.JTextField mejorLote;
     public javax.swing.JTextField promedio;
     public javax.swing.JTable tabla;
+    public javax.swing.JTextField txt_menorCosto;
     public javax.swing.JTextField veces;
     // End of variables declaration//GEN-END:variables
 }
