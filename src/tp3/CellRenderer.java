@@ -23,13 +23,11 @@ public class CellRenderer extends DefaultTableCellRenderer {
             } else if (value.equals("MALA")) {
                 cellComponent.setBackground(new Color(220, 82, 82)); // Celda roja si es mala
                 cellComponent.setFont(font.deriveFont(Font.BOLD));
-            } else if (value.equals("-")) {
+            } else if (value.equals("-") || value.equals("INTERRUP")) {
                 cellComponent.setBackground(new Color(255, 217, 102)); // Celda amarilla si es una pieza interrumpida
                 cellComponent.setFont(font.deriveFont(Font.BOLD));
             }
-        } else if (value == "INTERRUP") {
-            cellComponent.setBackground(new Color(255, 217, 102)); // Celda amarilla si es una pieza interrumpida
-            cellComponent.setFont(font.deriveFont(Font.BOLD));
+   
         } else {
             cellComponent.setBackground(table.getBackground()); // Color de fondo predeterminado
         }
