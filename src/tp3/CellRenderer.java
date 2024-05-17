@@ -16,19 +16,17 @@ public class CellRenderer extends DefaultTableCellRenderer {
         cellComponent.setForeground(new Color(1,1,1));
 
         // Cambiar el color de fondo según el valor de la celda
- if (value != null && value instanceof String) {
             if (value.equals("BUENA")) {
                 cellComponent.setBackground(new Color(189, 250, 182)); // Celda verde si es buena
                 cellComponent.setFont(font.deriveFont(Font.BOLD));
             } else if (value.equals("MALA")) {
                 cellComponent.setBackground(new Color(220, 82, 82)); // Celda roja si es mala
                 cellComponent.setFont(font.deriveFont(Font.BOLD));
-            } else if (value.equals("-") || value.equals("INTERRUP")) {
+            } else if (value.equals("INTERRUP")) {
                 cellComponent.setBackground(new Color(255, 217, 102)); // Celda amarilla si es una pieza interrumpida
                 cellComponent.setFont(font.deriveFont(Font.BOLD));
-            }
+            } else {
    
-        } else {
             cellComponent.setBackground(table.getBackground()); // Color de fondo predeterminado
         }
 
