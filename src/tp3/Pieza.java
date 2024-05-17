@@ -9,6 +9,11 @@ public class Pieza {
         esBuena =  rnd< 0.7;
 
     }
+    
+    public Pieza(double rnd, boolean buena) {
+        this.rnd = rnd;
+        this.esBuena = buena;
+    }
 
     public boolean esBuena(){
         return esBuena;

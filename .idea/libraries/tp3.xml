@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="tp3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/tp3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

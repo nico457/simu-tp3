@@ -22,68 +22,67 @@ public class GestorProduccion implements ActionListener{
         this.views.tabla.setDefaultRenderer(Object.class, cell);
         
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == views.btn_gen_sim) {
-            
-            int lote = Integer.parseInt(views.lote.getText());
-            int veces = Integer.parseInt(views.veces.getText());
-            cleanTable();
-    
-            model = (DefaultTableModel) views.tabla.getModel();
-            for (int i = 0; i < lote; i++) {
-                model.addColumn("RND " + (i + 1));
-                
-                model.addColumn("COND " + (i + 1));
-            }
-            model.addColumn("VECES PROD");
-            model.addColumn("BUENAS");
-            model.addColumn("COSTO");
+@Override
+public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == views.btn_gen_sim) {
+        int lote = Integer.parseInt(views.lote.getText());
+        int veces = Integer.parseInt(views.veces.getText());
+        cleanTable();
 
-         
-            double promedioCostos = 0;
-            double acumCostos = 0;
-            for (int j = 0; j < veces; j++) {
-                Produccion produccion = new Produccion();
-                ArrayList<Pieza> piezas = produccion.producirPiezas(lote);
-               
-                int cantColumnas = (lote * 2) + 4;
-                Object[] row = new Object[cantColumnas];
-                row[0] = j+1;
-                int cont = 0;
-                
-                for(int i = 1; i<= lote*2;i+=2){
-                    
-                    row[i] =  Double.parseDouble(piezas.get(cont).getRnd().replace(',', '.'));
-                    row[i+1] =  piezas.get(cont).esBuena()?"BUENA":"MALA";      
+        model = (DefaultTableModel) views.tabla.getModel();
+        for (int i = 0; i < lote; i++) {
+            model.addColumn("RND " + (i + 1));
+            model.addColumn("COND " + (i + 1));
+        }
+        model.addColumn("VECES PROD");
+        model.addColumn("BUENAS");
+        model.addColumn("MALAS");
+        model.addColumn("SOBRANTES");
+        model.addColumn("COSTO");
+
+        double promedioCostos = 0;
+        double acumCostos = 0;
+        for (int j = 0; j < veces; j++) {
+            Produccion produccion = new Produccion();
+            ArrayList<Pieza> piezas = produccion.producirPiezas(lote);
+
+            int cantColumnas = (lote * 2) + 6;
+            Object[] row = new Object[cantColumnas];
+            row[0] = j + 1;
+            int cont = 0;
+
+            for (int i = 1; i <= lote * 2; i += 2) {
+                if (cont < piezas.size()) {
+                    row[i] = piezas.get(cont).getRnd().equals("1,10") ? "-" : Double.parseDouble(piezas.get(cont).getRnd().replace(',', '.'));
+                    row[i + 1] = piezas.get(cont).getRnd().equals("1,10") ? "INTERRUP" : (piezas.get(cont).esBuena() ? "BUENA" : "MALA");
                     cont++;
-               
+                } else {
+                    row[i] = "0";
+                    row[i + 1] = null;
+                }
             }
-                
-                
-                int len = row.length;
-                row[len-3] = piezas.size()/lote;
-                row[len-2] = produccion.getContBuenas();
-                double costo = produccion.calcularCosto();
-                acumCostos += costo;
-                row[len-1] = costo;
-                
-                model.addRow(row);
-                
-            }
-            promedioCostos = acumCostos / veces;
-            views.promedio.setText(String.format("%.2f",promedioCostos));
-            
-            
-            
-            if(promedioCostos <= menorCosto){
-                menorCosto = promedioCostos;
-                views.mejorLote.setText(String.valueOf(lote));
-                views.txt_menorCosto.setText(String.format("%.2f",promedioCostos));
-            }
-                  
+
+            int len = row.length;
+            row[len - 5] = piezas.size() / lote;
+            row[len - 4] = produccion.getContBuenas();
+            row[len - 3] = produccion.getContMalas();
+            row[len - 2] = produccion.getSobrante();
+            double costo = produccion.calcularCosto();
+            acumCostos += costo;
+            row[len - 1] = costo;
+
+            model.addRow(row);
+        }
+        promedioCostos = acumCostos / veces;
+        views.promedio.setText(String.format("%.2f", promedioCostos));
+
+        if (promedioCostos <= menorCosto) {
+            menorCosto = promedioCostos;
+            views.mejorLote.setText(String.valueOf(lote));
+            views.txt_menorCosto.setText(String.format("%.2f", promedioCostos));
         }
     }
+}
     public void cleanTable() {
        DefaultTableModel model = (DefaultTableModel) views.tabla.getModel();
         model.setRowCount(0);
